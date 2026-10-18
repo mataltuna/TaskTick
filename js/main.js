@@ -17,7 +17,9 @@ let getFormDates = async function() {
             descrp = "No contiene descripción"
         }
         addTask(user, ttl, date, tim, descrp)
+        addForm.reset()
         showTask()
+        document.getElementById("tasks").scrollIntoView({ behavior: "smooth" });
     } else {
         Swal.fire({
             title: "Ups...",
@@ -42,9 +44,17 @@ function showTask() {
         const card = document.createElement("div")
         card.className = "taskCard"
         card.innerHTML  =  `<h4>${task.name}</h4>
-                            <p>${task.date}<br>${task.time}<br>${task.descrp}<br>Creado por ${task.creator}<br>${task.completed ? 'Completa' : 'No completa'}</p>
-                            <button class="delBtn" id="${task.id}">Eliminar</button>
-                            ${task.completed ? '' : `<button class="compBtn" id="${task.id}">Marcar como completada</button>`}`
+                            <ul class="taskInfo">
+                                <li><span class="taskLabel">Fecha:</span> ${task.date}</li>
+                                <li><span class="taskLabel">Hora:</span> ${task.time}</li>
+                                <li><span class="taskLabel">Descripción:</span> ${task.descrp}</li>
+                                <li><span class="taskLabel">Creado por:</span> ${task.creator}</li>
+                                <li><span class="taskLabel">Estado:</span> ${task.completed ? 'Completa' : 'No completa'}</li>
+                            </ul>
+                            <div class="taskBtns">
+                                <button class="delBtn" id="${task.id}">Eliminar</button>
+                                ${task.completed ? '' : `<button class="compBtn" id="${task.id}">Marcar como completada</button>`}
+                            </div>`
         tasksCont.appendChild(card)
     })
     tasksCont.addEventListener("click", taskInfo);

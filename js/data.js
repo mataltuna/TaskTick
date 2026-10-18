@@ -3,8 +3,11 @@ let form = document.getElementById("loginForm")
 let isLoggedIn = false
 let conJSON = async function() {
     try {
-    let response = await fetch("./../db/data.json");
-    let data = await response.json();  // Esperar a que la conversión a JSON se complete
+    let path = window.location.pathname.includes('/pages/') 
+        ? '../db/data.json' 
+        : './db/data.json';
+    let response = await fetch(path);
+    let data = await response.json();
     return data;
     } catch(err) {
         Swal.fire({
